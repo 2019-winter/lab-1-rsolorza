@@ -14,7 +14,7 @@ jupyter:
 ---
 
 # Name(s)
-**PUT YOUR FULL NAME(S) HERE**
+Ryan Solorzano
 
 
 **Instructions:** This is an individual assignment, but you may discuss your code with your neighbors.
@@ -36,7 +36,7 @@ Please read and reference the following as your progress through this course.
 **In the space provided below, what are three things that still remain unclear or need further explanation?**
 
 
-**YOUR ANSWER HERE**
+N/A
 
 
 ## Exercises 1-7
@@ -47,45 +47,86 @@ For the following exercises please read the Python appendix in the Marsland text
 
 ```python
 # YOUR SOLUTION HERE
-#a=1000
-print('this is my answer',a+1) 
+# a = [[2 for i in range(6)] for i in range(4)]
+import numpy as np
+a = np.full((6,4), 2)
+print(a)
 ```
 
+```python
 ## Exercise 2
+```
 
 ```python
 # YOUR SOLUTION HERE
-a=2000
+b = np.ones((6,4), int)
+np.fill_diagonal(b, 3)
+print(a)
 ```
 
 ## Exercise 3
 
 ```python
 # YOUR SOLUTION HERE
+# Multiplies each element across the array i.e. A[0,0] is multiplied by B[0,0].
+# Not true matrix multiplication
+print(a * b)
+# Is meant to be true matrix multiplication, and a 6x4 array cannot be
+# multiplied by another 6x4 since the number of columns of the first array 
+# does not equal the number of rows of the second, so matrix multiplication
+# is impossible
+# print(np.dot(a, b))
 ```
 
 ## Exercise 4
 
 ```python
 # YOUR SOLUTION HERE
+print(np.dot(a.transpose(), b))
+print(np.dot(a, b.transpose()))
+# The first matrix multiplication multiplies 4x6 matrix with a 6x4 matrix, which results in a 4x4 array
+# The second matrix multiplication multiplies a 6x4 matrix with a 4x6 matrix, which results in a 6x6 array
+# The difference comes with the nature of matrix multiplication
 ```
 
 ## Exercise 5
 
 ```python
 # YOUR SOLUTION HERE
+print("Hello World!")
 ```
 
 ## Exercise 6
 
 ```python
 # YOUR SOLUTION HERE
+c = np.random.rand(1000) 
+d = np.random.randn(1000) 
+e = np.random.normal(20, 5, 1000) 
+f = np.random.uniform(-100, 100, 1000) 
+g = np.random.randint(-10, 20, 1000) 
+
+print("sum", np.sum(c), "mean", np.mean(c), "standard deviation", np.std(c))
+print("sum", np.sum(d), "mean", np.mean(d), "standard deviation", np.std(d))
+print("sum", np.sum(e), "mean", np.mean(e), "standard deviation", np.std(e))
+print("sum", np.sum(f), "mean", np.mean(f), "standard deviation", np.std(f))
+print("sum", np.sum(g), "mean", np.mean(g), "standard deviation", np.std(g))
 ```
 
 ## Exercise 7
 
 ```python
 # YOUR SOLUTION HERE
+import numpy as np
+def count(arr, value):
+    count = 0
+    for idx in arr:
+        count = count + 1 if idx == value else count
+    return count
+
+h = np.random.randint(0,1000,10000)
+print(count(h, 1))
+print(len(np.where(h == 1)[0]))
 ```
 
 ## Excercises 8-???
@@ -97,6 +138,10 @@ Repeat exercise A.1 from Marsland, but create a Pandas DataFrame instead of a Nu
 
 ```python
 # YOUR SOLUTION HERE
+import pandas as pd
+
+i = pd.DataFrame(np.full((6,4), 2))
+print(i)
 ```
 
 ## Exercise 9
@@ -104,6 +149,9 @@ Repeat exercise A.2 using a DataFrame instead.
 
 ```python
 # YOUR SOLUTION HERE
+j = pd.DataFrame(np.ones((6,4)))
+j.iloc[range(4), range(4)] = 3
+j
 ```
 
 ## Exercise 10
@@ -111,6 +159,9 @@ Repeat exercise A.3 using DataFrames instead.
 
 ```python
 # YOUR SOLUTION HERE
+print (i * j)
+# Below code will throw a ValueError since dimensions don't match
+# print (pd.DataFrame.dot(i, j))
 ```
 
 ## Exercise 11
@@ -118,6 +169,15 @@ Repeat exercise A.7 using a dataframe.
 
 ```python
 # YOUR SOLUTION HERE
+def count(arr, value):
+    count = 0
+    for idx,rows in arr.iterrows():
+        count = count + 1 if rows[0] == value else count
+    return count
+
+k = pd.DataFrame(np.random.randint(0,1000,10000))
+print(count(k, 1))
+print(len(np.where(k == 1)[0]))
 ```
 
 ## Exercises 12-14
@@ -138,6 +198,7 @@ How do you select the ``name`` column without using .iloc?
 
 ```python
 ## YOUR SOLUTION HERE
+titanic_df['name']
 ```
 
 ## Exercise 13
@@ -145,7 +206,8 @@ After setting the index to ``sex``, how do you select all passengers that are ``
 
 ```python
 ## YOUR SOLUTION HERE
-titanic_df.set_index('sex',inplace=True)
+titanic_df.set_index('sex', inplace=True)
+titanic_df.loc['female']
 ```
 
 ## Exercise 14
@@ -153,6 +215,8 @@ How do you reset the index?
 
 ```python
 ## YOUR SOLUTION HERE
+titanic_df.reset_index(inplace=True)
+titanic_df
 ```
 
 ```python
